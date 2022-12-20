@@ -79,9 +79,7 @@ def login(driver, username, password):
   passwordInput.send_keys(password)
   login = driver.find_element(By.XPATH, "//button[@id='loginbtn']")
   login.click()
-  bgCourse = driver.find_elements(By.XPATH, "//div[@data-flexitour='backdrop']")
-  if len(bgCourse) > 0:
-    bgCourse[0].click()
+  closeBg(driver)
   WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//a[@id='user-menu-toggle']")))
   avatar = driver.find_element(By.XPATH, "//a[@id='user-menu-toggle']")
   avatar.click()
