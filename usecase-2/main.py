@@ -18,7 +18,6 @@ def prepareData(driver):
   usersCreated = dataPreCondition['usersCreated']
   usersAdd = dataPreCondition['usersAdd']
   
-  
   for user in usersAdd:
     deleteAccount(driver, user)
   
@@ -26,7 +25,6 @@ def prepareData(driver):
     addAccount(driver, user)
     
   driver.get("http://localhost/")  
-
 
 def closeBg(driver):
   try:    
@@ -333,8 +331,6 @@ def main():
   addUserFailInfo(driver, dataTest['dataInputLackPassword'])
   addUserFailInfo(driver, dataTest['dataInputPasswordInvalid1'])
   addUserFailInfo(driver, dataTest['dataInputPasswordInvalid2'])
-  
-  
   
 if __name__ == '__main__':
   main()
