@@ -34,8 +34,6 @@ def prepareData(driver):
   logout(driver)
     
   login(driver, dataUsers[0]['username'], dataUsers[0]['password'])
-    
-    
 
 def ViewCourseByHome(driver, course):
   try:
@@ -129,8 +127,6 @@ def ViewCourseByMyCoursesFilter(driver, course):
   except:
     print("Fail")
 
-
-
 def closeBg(driver):
   try:    
     WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, "//div[@data-flexitour='backdrop']")))
@@ -178,7 +174,6 @@ def logout(driver):
   logoutButton = listManager[len(listManager)-1]
   logoutButton.click()
   
-  
 def addUserToCourse(driver, user, course):
   siteCourse = driver.find_element(By.XPATH, "//a[@href='http://localhost/my/courses.php']")
   siteCourse.click()
@@ -214,7 +209,6 @@ def addUserToCourse(driver, user, course):
       participantsAdd = driver.find_element(By.CSS_SELECTOR, ".modal-footer button.btn.btn-primary")
       participantsAdd.click()
       break
-  
 
 def clearCourse(driver, courseInput):
   # clear course have course's name
@@ -307,7 +301,6 @@ def addCourse(driver, course):
   addCourseSubmit = driver.find_element(By.XPATH, "//input[@type='submit'][@name='saveanddisplay']")
   addCourseSubmit.click()
   closeBg(driver)
-  
 
 def addAccount(driver, account):
   # delete account if it's username or email has existed
