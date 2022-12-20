@@ -56,12 +56,15 @@ def login(driver, username, password):
   WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//a[@id='user-menu-toggle']")))
   avatar = driver.find_element(By.XPATH, "//a[@id='user-menu-toggle']")
   avatar.click()
-  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")))
-  language = driver.find_element(By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")
-  language.click()
-  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")))
-  languageEnglish = driver.find_element(By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")
-  languageEnglish.click()
+  try: 
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")))
+    language = driver.find_element(By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")
+    language.click()
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")))
+    languageEnglish = driver.find_element(By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")
+    languageEnglish.click()
+  except:
+    avatar.click()
   
 def logout(driver):
   WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//a[@id='user-menu-toggle']")))
