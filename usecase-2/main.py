@@ -7,24 +7,25 @@ from dotenv import *
 from data import *
  
 def prepareData(driver):
-  driver.get("http://localhost/")
-  driver.maximize_window()
+  try: 
+    driver.get("http://localhost/")
+    driver.maximize_window()
 
-  env = dotenv_values(".env")
-  username_login = env["usernameAdmin"] 
-  password_login = env["passwordAdmin"]
-  login(driver, username_login, password_login)
-  
-  usersCreated = dataPreCondition['usersCreated']
-  usersAdd = dataPreCondition['usersAdd']
-  
-  for user in usersAdd:
-    deleteAccount(driver, user)
-  
-  for user in usersCreated:
-    addAccount(driver, user)
+    env = dotenv_values("./../.env")
+    username_login = env["usernameAdmin"] 
+    password_login = env["passwordAdmin"]
+    login(driver, username_login, password_login)
     
-  driver.get("http://localhost/")  
+    usersCreated = dataPreCondition['usersCreated']
+    usersAdd = dataPreCondition['usersAdd']
+    
+    for user in usersAdd:
+      deleteAccount(driver, user)
+    
+    for user in usersCreated:
+      addAccount(driver, user)
+  except :
+    pass
 
 def closeBg(driver):
   try:    
@@ -318,16 +319,26 @@ def main():
   prepareData(driver)
   
   dataTest = data
-  
+  driver.get("http://localhost/") 
+  print('Test 1: ', end='')
   addUserPass(driver, dataTest['dataInputTrue'])
+  print('Test 2: ', end='')
   addUserLackRequired(driver, dataTest['dataInputLackFirstname'])
+  print('Test 3: ', end='')
   addUserLackRequired(driver, dataTest['dataInputLackSurname'])
+  print('Test 4: ', end='')
   addUserLackRequired(driver, dataTest['dataInputLackEmail'])
+  print('Test 5: ', end='')
   addUserFailInfo(driver, dataTest['dataInputEmailInvalid'])
+  print('Test 6: ', end='')
   addUserFailInfo(driver, dataTest['dataInputEmailExisted'])
+  print('Test 7: ', end='')
   addUserFailInfo(driver, dataTest['dataInputUsernameExisted'])
+  print('Test 8: ', end='')
   addUserFailInfo(driver, dataTest['dataInputLackPassword'])
+  print('Test 9: ', end='')
   addUserFailInfo(driver, dataTest['dataInputPasswordInvalid1'])
+  print('Test 10: ', end='')
   addUserFailInfo(driver, dataTest['dataInputPasswordInvalid2'])
   
 if __name__ == '__main__':

@@ -29,33 +29,35 @@ def drop_files(element, files, offsetX=0, offsetY=0):
 WebElement.drop_files = drop_files
 
 def prepareData(driver):
-  driver.get("http://localhost/")
-  driver.maximize_window()
-  usersCreated = dataPreCondition['usersCreated']
-
-  env = dotenv_values(".env")
-  username_login = env["usernameAdmin"] 
-  password_login = env["passwordAdmin"]
-  login(driver, username_login, password_login)
-  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//a[@id='user-menu-toggle']")))
-  avatar = driver.find_element(By.XPATH, "//a[@id='user-menu-toggle']")
-  avatar.click()
   try:
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")))
-    language = driver.find_element(By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")
-    language.click()
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")))
-    languageEnglish = driver.find_element(By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")
-    languageEnglish.click()
-  except :
+    driver.get("http://localhost/")
+    driver.maximize_window()
+    usersCreated = dataPreCondition['usersCreated']
+
+    env = dotenv_values("./../.env")
+    username_login = env["usernameAdmin"] 
+    password_login = env["passwordAdmin"]
+    login(driver, username_login, password_login)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//a[@id='user-menu-toggle']")))
+    avatar = driver.find_element(By.XPATH, "//a[@id='user-menu-toggle']")
     avatar.click()
-  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//li[@data-key='siteadminnode']")))
-  adminSite = driver.find_element(By.XPATH, "//li[@data-key='siteadminnode']")
-  adminSite.click()
-  
-  for user in usersCreated:
-    addAccount(driver, user)
-  
+    try:
+      WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")))
+      language = driver.find_element(By.CSS_SELECTOR, "a.carousel-navigation-link.dropdown-item")
+      language.click()
+      WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")))
+      languageEnglish = driver.find_element(By.CSS_SELECTOR, "div > div.items.h-100.overflow-auto > a:nth-child(1)")
+      languageEnglish.click()
+    except :
+      avatar.click()
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//li[@data-key='siteadminnode']")))
+    adminSite = driver.find_element(By.XPATH, "//li[@data-key='siteadminnode']")
+    adminSite.click()
+    
+    for user in usersCreated:
+      addAccount(driver, user)
+  except :
+    pass 
 
 def closeBg(driver):
   try:    
@@ -287,10 +289,16 @@ def main():
   dataTest = data
   prepareData(driver)
   
+  driver.get("http://localhost/")
+  print('Test 1: ', end='')
   uploadImage(driver, dataTest['moreOne_FailFormat'])
+  print('Test 2: ', end='')
   uploadImage(driver, dataTest['moreOne_TrueFailFormat'])
+  print('Test 3: ', end='')
   uploadImage(driver, dataTest['moreOne_TrueFormat'])
+  print('Test 4: ', end='')
   uploadImage(driver, dataTest['One_FailFormat'])
+  print('Test 5: ', end='')
   uploadImage(driver, dataTest['One_TrueFormat'])
     
   

@@ -6,14 +6,16 @@ from dotenv import *
 from data import *
  
 def prepareData(driver):
-  driver.get("http://localhost/")
-  driver.maximize_window()
+  try:
+    driver.get("http://localhost/")
+    driver.maximize_window()
 
-  env = dotenv_values(".env")
-  username_login = env["usernameAdmin"] 
-  password_login = env["passwordAdmin"]
-  login(driver, username_login, password_login)
-  
+    env = dotenv_values("./../.env")
+    username_login = env["usernameAdmin"] 
+    password_login = env["passwordAdmin"]
+    login(driver, username_login, password_login)
+  except :
+    pass  
 
 def closeBg(driver):
   try:    
@@ -108,12 +110,20 @@ def main():
   dataTest = data
   prepareData(driver)
   
+  driver.get("http://localhost/")
+  print('Test 1: ', end='')
   changePoint(driver, dataTest['dataMin-'])
+  print('Test 2: ', end='')
   changePoint(driver, dataTest['dataMin'])
+  print('Test 3: ', end='')
   changePoint(driver, dataTest['dataMin+'])
+  print('Test 4: ', end='')
   changePoint(driver, dataTest['dataAverage'])
+  print('Test 5: ', end='')
   changePoint(driver, dataTest['dataMax-'])
+  print('Test 6: ', end='')
   changePoint(driver, dataTest['dataMax'])
+  print('Test 7: ', end='')
   changePoint(driver, dataTest['dataMax+'])
   
 if __name__ == '__main__':
